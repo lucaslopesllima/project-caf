@@ -30,6 +30,9 @@
     "Update Password":"Atualizar Senha",
     "Ensure your account is using a long, random password to stay secure.":"Melhore a segurança da sua conta usando uma senha aleatória e longa.",
     "Current Password":"Senha Atual",
-    "New Password":"Nova senha"
+    "New Password":"Nova senha",
+    "Showing":"Mostrando",
+    "of":"de",
+    "results":"resultados"
 
 }

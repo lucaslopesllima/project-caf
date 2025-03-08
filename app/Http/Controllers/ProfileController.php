@@ -13,7 +13,7 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
 
-    public function index(Request $request){
+    public function index(){
         $users = User::all();
         return view('profile.list-user',['users'=>$users]);
     }
