@@ -14,11 +14,13 @@ This project aims to provide a platform for managing and registering beneficiari
 
 - **Backend**: [Laravel](https://laravel.com/)
 - **Database**: [MySQL](https://www.mysql.com/)
-- **Authentication**: [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze) 
+- **Authentication**: [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze)
+- **Docker**: For containerized development and deployment.
+- **TailWind**: [TailWind](https://tailwindcss.com/)
 
 ## Running the Project Locally
 
 ### 1. Clone the Repository
 
 Clone this repository to your local machine:
-
+https://github.com/lucaslopesllima/project-caf.git
