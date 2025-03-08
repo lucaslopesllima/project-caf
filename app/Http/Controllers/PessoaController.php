@@ -12,8 +12,8 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        $pessoas = Pessoa::all();
-        return view('pessoas.index', compact('pessoas'));
+        $people = Pessoa::paginate(env('PER_PAGE'));
+        return view('people.index', compact('people'));
     }
 
     /**
