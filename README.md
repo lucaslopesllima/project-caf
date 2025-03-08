@@ -2,7 +2,7 @@
 
 This project aims to provide a platform for managing and registering beneficiaries, volunteers, and projects within the support institution. The goal is to streamline the organization and monitoring of the institution's actions, facilitating a more efficient connection between those involved and the family support initiatives.
 
-## Features
+### Features
 
 - **Beneficiary Registration**: Register information about families and individuals who receive support from the institution, including personal details, needs, and attendance history.
 - **Volunteer Registration**: Register volunteers willing to offer their time and skills to assist in the institution's projects.
