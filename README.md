@@ -1,28 +1,24 @@
-Clonar projeto
-Trocar o .env (Whatsapp)
-Trocar o Docker-compose.yml (Whatsapp)
-Trocar composer.json (Whatsapp)
-Rodar o comando no terminal
-    
-    docker compose up --build
+# Family Support Institution
 
-Em seguida rodar o comando 
+This project aims to provide a platform for managing and registering beneficiaries, volunteers, and projects within the support institution. The goal is to streamline the organization and monitoring of the institution's actions, facilitating a more efficient connection between those involved and the family support initiatives.
 
-    docker exec -it dymobcliente-app-1 bash
+## Features
 
-Agora dentro do container rodar o comando 
+- **Beneficiary Registration**: Register information about families and individuals who receive support from the institution, including personal details, needs, and attendance history.
+- **Volunteer Registration**: Register volunteers willing to offer their time and skills to assist in the institution's projects.
+- **Project Management**: Register and track the institution's projects, including information on objectives, deadlines, responsible individuals, and statuses.
+- **Activity Monitoring**: Link volunteers to projects and effectively provide support to families.
+- **Person Evaluation via Questionnaire**: Evaluate beneficiaries and volunteers through questionnaires, supporting the full CRUD (Create, Read, Update, Delete) operations for managing questionnaires and their responses.
 
-    composer install
+## Technologies Used
 
-Em seguida rodar o comando
+- **Backend**: [Laravel](https://laravel.com/)
+- **Database**: [MySQL](https://www.mysql.com/)
+- **Authentication**: [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze) 
 
-    npm install
+## Running the Project Locally
 
-Em seguida rodar o comando
+### 1. Clone the Repository
 
-    npm run build
+Clone this repository to your local machine:
 
-Em seguida rodar o camando 
-
-    npm run dev
-# projeto-caf
