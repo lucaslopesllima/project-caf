@@ -37,14 +37,14 @@ docker-compose exec app php artisan db:seed
 ## 5. Open your browser and navigate to:
 http://localhost:8000
 
-Project Structure
-app/: Contains the main backend code, such as controllers, models, and services.
-database/: Contains migrations, factories, and seeds to set up database tables and initial data.
-routes/: Defines the project's routes (such as API and web pages).
-resources/: Contains view files (if applicable) and translations.
-public/: Public files such as images, CSS, and JavaScript.
-tests/: Contains the project's automated tests.
-docker/: Contains Docker configuration files (e.g., Dockerfile, docker-compose.yml)
+Project Structure<br>
+app/: Contains the main backend code, such as controllers, models, and services.<br>
+database/: Contains migrations, factories, and seeds to set up database tables and initial data.<br>
+routes/: Defines the project's routes (such as API and web pages).<br>
+resources/: Contains view files (if applicable) and translations.<br>
+public/: Public files such as images, CSS, and JavaScript.<br>
+tests/: Contains the project's automated tests.<br>
+docker/: Contains Docker configuration files (e.g., Dockerfile, docker-compose.yml)<br>
 
 
 Contributing
