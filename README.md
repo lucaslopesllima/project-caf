@@ -15,7 +15,7 @@ This project aims to provide a platform for managing and registering beneficiari
 - **Backend**: [Laravel](https://laravel.com/)
 - **Database**: [MySQL](https://www.mysql.com/)
 - **Authentication**: [Laravel Breeze](https://laravel.com/docs/9.x/starter-kits#laravel-breeze)
-- **Docker**: For containerized development and deployment.
+- **Docker**: [Docker](https://www.docker.com/)
 - **TailWind**: [TailWind](https://tailwindcss.com/)
 
 ## Running the Project Locally
