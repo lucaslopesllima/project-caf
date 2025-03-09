@@ -10,7 +10,7 @@ This project aims to provide a platform for managing and registering beneficiari
 - **Activity Monitoring**: Link volunteers to projects and effectively provide support to families.
 - **Person Evaluation via Questionnaire**: Evaluate beneficiaries and volunteers through questionnaires, supporting the full CRUD (Create, Read, Update, Delete) operations for managing questionnaires and their responses.
 
-## Technologies Used
+### Technologies Used
 
 - **Backend**: [Laravel](https://laravel.com/)
 - **Database**: [MySQL](https://www.mysql.com/)
@@ -18,26 +18,26 @@ This project aims to provide a platform for managing and registering beneficiari
 - **Docker**: [Docker](https://www.docker.com/)
 - **TailWind**: [TailWind](https://tailwindcss.com/)
 
-## Running the Project Locally
+### Running the Project Locally
 
-# 1. Clone the Repository
+#### 1. Clone the Repository
 
 Clone this repository to your local machine:
 git clone https://github.com/lucaslopesllima/project-caf.git
 
-# 2. Build and start the Docker containers:
+##### 2. Build and start the Docker containers:
 docker-compose up --build
 
-# 3. After the containers are running, run the Laravel migrations to set up the database:
+#### 3. After the containers are running, run the Laravel migrations to set up the database:
 docker compose exec app php artisan migrate
 
-# 4. If needed, seed the database with initial data:
+#### 4. If needed, seed the database with initial data:
 docker compose exec app php artisan db:seed
 
-# 5. Open your browser and navigate to:
+#### 5. Open your browser and navigate to:
 docker compose exec app php artisan key generate
 
-# 6.Generate APP_KEY
+#### 6.Generate APP_KEY
 http://localhost:8000
 
 Project Structure<br>
