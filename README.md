@@ -34,10 +34,8 @@ docker compose exec app php artisan migrate
 #### 4. If needed, seed the database with initial data:
 docker compose exec app php artisan db:seed
 
-#### 5. Open your browser and navigate to:
+#### 5. Open your browser and navigate to Generate APP_KEY:
 docker compose exec app php artisan key generate
-
-#### 6.Generate APP_KEY
 http://localhost:8000
 
 Project Structure<br>
