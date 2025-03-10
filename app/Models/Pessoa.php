@@ -11,6 +11,7 @@ class Pessoa extends Model
     use HasFactory;
     
     protected $fillable = [
+        'id',
         'nome',
         'idade',
         'quantidade_filhos',

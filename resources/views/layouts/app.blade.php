@@ -34,7 +34,7 @@
                 </ul>
             </aside>
         </div>
-        <div class="w-full lg:w-5/6 lg:flex lg:justify-center">
+        <div class="w-full">
             {{ $slot }}
         </div>
     </div>

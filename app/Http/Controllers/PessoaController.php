@@ -21,7 +21,7 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        return view('pessoas.create');
+        return view('people.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class PessoaController extends Controller
      */
     public function show(Pessoa $pessoa)
     {
-        return view('pessoas.show', compact('pessoa'));
+        return view('people.show', compact('pessoa'));
     }
 
     /**
@@ -56,7 +56,7 @@ class PessoaController extends Controller
      */
     public function edit(Pessoa $pessoa)
     {
-        return view('pessoas.edit', compact('pessoa'));
+        return view('people.edit', compact('pessoa'));
     }
 
     /**
@@ -74,7 +74,7 @@ class PessoaController extends Controller
         ]);
 
         $pessoa->update($request->all());
-        return redirect()->route('pessoas.index')
+        return redirect()->route('pessoa.index')
             ->with('success', 'Pessoa atualizada com sucesso.');
     }
 

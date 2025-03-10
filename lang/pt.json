@@ -33,6 +33,14 @@
     "New Password":"Nova senha",
     "Showing":"Mostrando",
     "of":"de",
-    "results":"resultados"
+    "results":"resultados",
+    "Register Information":"Informações de cadastro",
+    "Update register informations.":"Atualize informações de cadastro",
+    "naturality":"Naturalidade",
+    "neighborhood":"Bairro",
+    "Age":"Idade",
+    "quantity children":"Quantidade de filhos",
+    "education":"Educação",
+    "Add new beneficiary":"Adicionar um novo beneficiario"
 
 }
