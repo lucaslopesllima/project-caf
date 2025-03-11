@@ -39,7 +39,7 @@ class PessoaController extends Controller
         ]);
 
         Pessoa::create($request->all());
-        return redirect()->route('pessoas.index')
+        return redirect()->route('pessoa.index')
             ->with('success', 'Pessoa criada com sucesso.');
     }
 
@@ -48,7 +48,6 @@ class PessoaController extends Controller
      */
     public function show(Pessoa $pessoa)
     {
-        return view('people.show', compact('pessoa'));
     }
 
     /**
@@ -84,7 +83,7 @@ class PessoaController extends Controller
     public function destroy(Pessoa $pessoa)
     {
         $pessoa->delete();
-        return redirect()->route('pessoas.index')
+        return redirect()->route('pessoa.index')
             ->with('success', 'Pessoa excluída com sucesso.');
     }
 }
