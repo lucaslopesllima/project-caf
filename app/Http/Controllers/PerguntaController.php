@@ -13,7 +13,7 @@ class PerguntaController extends Controller
     public function index()
     {
         $perguntas = Pergunta::all();
-        return view('perguntas.index', compact('perguntas'));
+        return view('question.index', compact('perguntas'));
     }
 
     /**
@@ -21,7 +21,7 @@ class PerguntaController extends Controller
      */
     public function create()
     {
-        return view('perguntas.create');
+        return view('question.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class PerguntaController extends Controller
 
         Pergunta::create($request->all());
         
-        return redirect()->route('perguntas.index')
+        return redirect()->route('question.index')
             ->with('success', 'Pergunta criada com sucesso.');
     }
 
@@ -44,7 +44,7 @@ class PerguntaController extends Controller
      */
     public function show(Pergunta $pergunta)
     {
-        return view('perguntas.show', compact('pergunta'));
+        return view('question.show', compact('pergunta'));
     }
 
     /**
@@ -52,7 +52,7 @@ class PerguntaController extends Controller
      */
     public function edit(Pergunta $pergunta)
     {
-        return view('perguntas.edit', compact('pergunta'));
+        return view('question.edit', compact('pergunta'));
     }
 
     /**
@@ -66,7 +66,7 @@ class PerguntaController extends Controller
 
         $pergunta->update($request->all());
         
-        return redirect()->route('perguntas.index')
+        return redirect()->route('question.index')
             ->with('success', 'Pergunta atualizada com sucesso.');
     }
 
@@ -77,7 +77,7 @@ class PerguntaController extends Controller
     {
         $pergunta->delete();
         
-        return redirect()->route('perguntas.index')
+        return redirect()->route('question.index')
             ->with('success', 'Pergunta excluída com sucesso.');
     }
 }
