@@ -41,6 +41,9 @@
     "Age":"Idade",
     "quantity children":"Quantidade de filhos",
     "education":"Educação",
-    "Add new beneficiary":"Adicionar um novo beneficiario"
+    "Add new beneficiary":"Adicionar um novo beneficiario",
+    "Add new question":"Adicionar nova pergunta",
+    "Question text":"Texto Pergunta",
+    "Update the question":"Atualizar a pergunta"
 
 }
