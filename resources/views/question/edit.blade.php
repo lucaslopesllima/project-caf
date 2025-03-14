@@ -1,14 +1,15 @@
 <x-app-layout>
-    <x-backward-button href="{{ route('pessoa.index') }}"></x-backward-button>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @include('people.partials.edit-form')
-        </div>
-    </div>
+    <x-backward-button href="{{ route('pergunta.index') }}"></x-backward-button>
+    <section class="d-flex justify-center align-center">
+    <header class="d-flex justify-center align-center">
+            <h2 class="text-lg font-medium  text-base-content">
+                {{ __('Update the question') }}
+            </h2>
+    </header>
+    <form method="post" action="{{ route('pergunta.update',['perguntum'=>$perguntum]) }}" class="mt-6 space-y-6">
+        @csrf
+        @method('patch')
+        @include('question.partials.form')
+    </form>
+</section>
 </x-app-layout>
