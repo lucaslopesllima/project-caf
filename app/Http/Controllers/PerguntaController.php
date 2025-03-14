@@ -12,8 +12,8 @@ class PerguntaController extends Controller
      */
     public function index()
     {
-        $perguntas = Pergunta::all();
-        return view('question.index', compact('perguntas'));
+        $questions = Pergunta::orderBy('id', 'desc')->paginate(env('PER_PAGE'));
+        return view('question.index', compact('questions'));
     }
 
     /**
@@ -30,12 +30,12 @@ class PerguntaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'text' => 'required|max:255',
+            'texto' => 'required|max:255',
         ]);
 
         Pergunta::create($request->all());
         
-        return redirect()->route('question.index')
+        return redirect()->route('pergunta.index')
             ->with('success', 'Pergunta criada com sucesso.');
     }
 
@@ -50,34 +50,34 @@ class PerguntaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pergunta $pergunta)
+    public function edit(Pergunta $perguntum)
     {
-        return view('question.edit', compact('pergunta'));
+        return view('question.edit', compact('perguntum'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pergunta $pergunta)
+    public function update(Request $request, Pergunta $perguntum)
     {
         $request->validate([
             'texto' => 'required|max:255',
         ]);
 
-        $pergunta->update($request->all());
+        $perguntum->update($request->all());
         
-        return redirect()->route('question.index')
+        return redirect()->route('pergunta.index')
             ->with('success', 'Pergunta atualizada com sucesso.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pergunta $pergunta)
+    public function destroy(Pergunta $perguntum)
     {
-        $pergunta->delete();
+        $perguntum->delete();
         
-        return redirect()->route('question.index')
+        return redirect()->route('pergunta.index')
             ->with('success', 'Pergunta excluída com sucesso.');
     }
 }
