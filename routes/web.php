@@ -5,11 +5,8 @@ use App\Http\Controllers\PerguntaController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionarioController;
-use App\Models\Pessoa;
-use App\Models\Questionario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', function () {
     return view('auth.login');
