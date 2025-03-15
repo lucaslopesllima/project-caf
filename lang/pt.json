@@ -44,6 +44,10 @@
     "Add new beneficiary":"Adicionar um novo beneficiario",
     "Add new question":"Adicionar nova pergunta",
     "Question text":"Texto Pergunta",
-    "Update the question":"Atualizar a pergunta"
+    "Update the question":"Atualizar a pergunta",
+    "Create New Questionnarie":"Criar novo questionario",
+    "Create questionnaire":"Criar Questionário",
+    "Select some questions to quetionnaire":"Selecione as perguntas para o questionário",
+    "Update the questionnaire":"Atualizar o questionario"
 
 }
