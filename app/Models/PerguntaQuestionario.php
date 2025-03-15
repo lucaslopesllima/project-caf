@@ -16,8 +16,17 @@ class PerguntaQuestionario extends Model
         return $this->belongsTo(Questionario::class);
     }
 
-    public function pergunta()
+    public function perguntas()
     {
         return $this->belongsTo(Pergunta::class);
+    }
+
+    public static function getWholeQuetionFromQuestionnaire($questionarioId)
+    {
+        return self::where('questionario_id', $questionarioId)
+            ->join('perguntas', 'pergunta_questionarios.pergunta_id', '=', 'perguntas.id')
+            ->select('perguntas.*')
+            ->orderBy('perguntas.id', 'desc')
+            ->get();
     }
 }
