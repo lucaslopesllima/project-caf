@@ -28,7 +28,7 @@
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
                     <li><a href="">Projetos</a></li>
-                    <li><a href="#">Questionarios</a></li>
+                    <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
                     <li><a href="{{ route('logout')}}">Sair</a></li>
                 </ul>
