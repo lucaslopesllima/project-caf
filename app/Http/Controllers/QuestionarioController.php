@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pergunta;
+use App\Models\PerguntaQuestionario;
 use Illuminate\Http\Request;
 use App\Models\Questionario;
 use App\Models\Pessoa;
@@ -13,8 +15,8 @@ class QuestionarioController extends Controller
      */
     public function index()
     {
-        $questionarios = Questionario::with('pessoa')->get();
-        return view('questionarios.index', compact('questionarios'));
+        $questionnaires = Questionario::orderBy('id','desc')->paginate(env('PER_PAGE'));
+        return view('questionnaire.index', compact('questionnaires'));
     }
 
     /**
@@ -22,8 +24,8 @@ class QuestionarioController extends Controller
      */
     public function create()
     {
-        $pessoas = Pessoa::all();
-        return view('questionarios.create', compact('pessoas'));
+        $questions = Pergunta::orderBy('id', 'desc')->get();
+        return view('questionnaire.create', compact('questions'));
     }
 
     /**
@@ -38,7 +40,7 @@ class QuestionarioController extends Controller
         ]);
 
         Questionario::create($request->all());
-        return redirect()->route('questionarios.index')
+        return redirect()->route('questionnaire.index')
             ->with('success', 'Questionário criado com sucesso.');
     }
 
@@ -47,31 +49,34 @@ class QuestionarioController extends Controller
      */
     public function show(Questionario $questionario)
     {
-        return view('questionarios.show', compact('questionario'));
+        return view('questionnaire.show', compact('questionario'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Questionario $questionario)
-    {
-        $pessoas = Pessoa::all();
-        return view('questionarios.edit', compact('questionario', 'pessoas'));
+    public function edit(Questionario $questionario){
+
+        $questions_from_questionnaire = PerguntaQuestionario::getWholeQuetionFromQuestionnaire($questionario->id);
+        $questions = Pergunta::orderBy('id', 'desc')->get();
+        $name_questionnrie = $questionario->nome;
+        
+        return view('questionnaire.edit', compact('questions_from_questionnaire', 'questions','name_questionnrie'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Questionario $questionario)
+    public function update(Request $request)
     {
         $request->validate([
-            'pergunta' => 'required',
-            'resposta' => 'required',
-            'pessoa_id' => 'required|exists:pessoas,id'
+            'name_questionnaire' => 'required',
+            'questions'          => 'required',
         ]);
 
-        $questionario->update($request->all());
-        return redirect()->route('questionarios.index')
+        Questionario::where('id', $request->id)->update(['nome' => $request->name_questionnaire]);
+
+        return redirect()->route('questionario.index')
             ->with('success', 'Questionário atualizado com sucesso.');
     }
 
@@ -81,7 +86,7 @@ class QuestionarioController extends Controller
     public function destroy(Questionario $questionario)
     {
         $questionario->delete();
-        return redirect()->route('questionarios.index')
+        return redirect()->route('questionario.index')
             ->with('success', 'Questionário excluído com sucesso.');
     }
 }
