@@ -6,7 +6,7 @@ use App\Models\Pergunta;
 use App\Models\PerguntaQuestionario;
 use Illuminate\Http\Request;
 use App\Models\Questionario;
-use App\Models\Pessoa;
+use App\Service\QuestionnaireService;
 
 class QuestionarioController extends Controller
 {
@@ -15,8 +15,11 @@ class QuestionarioController extends Controller
      */
     public function index()
     {
-        $questionnaires = Questionario::orderBy('id','desc')->paginate(env('PER_PAGE'));
-        return view('questionnaire.index', compact('questionnaires'));
+        $questionnaires = 
+        Questionario::orderBy('id','desc')
+        ->paginate(env('PER_PAGE'));
+        return view('questionnaire.index', 
+        compact('questionnaires'));
     }
 
     /**
@@ -24,8 +27,10 @@ class QuestionarioController extends Controller
      */
     public function create()
     {
-        $questions = Pergunta::orderBy('id', 'desc')->get();
-        return view('questionnaire.create', compact('questions'));
+        $questions = Pergunta::orderBy('id', 'desc')
+        ->get();
+        return view('questionnaire.create'
+        , compact('questions'));
     }
 
     /**
@@ -34,10 +39,10 @@ class QuestionarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pergunta' => 'required',
-            'resposta' => 'required',
-            'pessoa_id' => 'required|exists:pessoas,id'
+            'name_questionnaire' => 'required',
+            'questions'          => 'required',
         ]);
+
 
         Questionario::create($request->all());
         return redirect()->route('questionnaire.index')
@@ -57,11 +62,18 @@ class QuestionarioController extends Controller
      */
     public function edit(Questionario $questionario){
 
-        $questions_from_questionnaire = PerguntaQuestionario::getWholeQuetionFromQuestionnaire($questionario->id);
+        $questions_from_questionnaire =
+         PerguntaQuestionario::
+        getWholeQuetionFromQuestionnaire($questionario->id);
+
+        $questionnaire_id = $questionario->id;
         $questions = Pergunta::orderBy('id', 'desc')->get();
         $name_questionnrie = $questionario->nome;
         
-        return view('questionnaire.edit', compact('questions_from_questionnaire', 'questions','name_questionnrie'));
+        return view('questionnaire.edit', 
+                        compact('questions_from_questionnaire',
+                                'questions','name_questionnrie',
+                                'questionnaire_id'));
     }
 
     /**
@@ -74,7 +86,7 @@ class QuestionarioController extends Controller
             'questions'          => 'required',
         ]);
 
-        Questionario::where('id', $request->id)->update(['nome' => $request->name_questionnaire]);
+        QuestionnaireService::updateQuestinnaire();
 
         return redirect()->route('questionario.index')
             ->with('success', 'Questionário atualizado com sucesso.');
