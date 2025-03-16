@@ -43,9 +43,9 @@ class QuestionarioController extends Controller
             'questions'          => 'required',
         ]);
 
+        QuestionnaireService::createQuestinnaire();
 
-        Questionario::create($request->all());
-        return redirect()->route('questionnaire.index')
+        return redirect()->route('questionario.index')
             ->with('success', 'Questionário criado com sucesso.');
     }
 
