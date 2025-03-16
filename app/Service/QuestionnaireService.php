@@ -17,6 +17,20 @@ class QuestionnaireService{
          $_POST["questinnaire_id"])
         ->delete();
 
+        self::addQuestionsToQuestionnaire();
+    }
+
+    public static function createQuestinnaire(){
+        $_POST['questinnaire_id'] = Questionario::insertGetId([
+            'nome' =>$_POST["name_questionnaire"],
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        self::addQuestionsToQuestionnaire();
+    }
+
+    private static function addQuestionsToQuestionnaire(){
         $questionsToQuestionnaire = [];
         foreach ($_POST["questions"] as $perguntaId) {
             
@@ -29,9 +43,10 @@ class QuestionnaireService{
                     'updated_at' => now()
                 ]
             );
+
+
         }
 
         PerguntaQuestionario::insert($questionsToQuestionnaire);
-
-    }
+    }   
 }
