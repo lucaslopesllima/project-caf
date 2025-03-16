@@ -1,6 +1,6 @@
 <div class="mx-auto p-6 rounded-lg ">
     <x-text-input placeholder="Nome do questionario" name="name_questionnaire" value="{{$name_questionnrie??''}}" class="w-full p-2 border rounded mb-4" ></x-text-input>
-    <input type="hidden" name="questinnaire_id" value="{{$questionnaire_id ?? ''}}">
+    <input type="hidden" name="questionnaire_id" value="{{$questionnaire_id ?? ''}}">
     <input type="text" id="search" placeholder="Filtrar pergunta..." class="w-full p-2 border rounded mb-4" onkeyup="filterQuestions()">
         <ul id="questionList" style="overflow-x: auto; height: 350px;" class="space-y-2">
             @isset($questions_from_questionnaire)

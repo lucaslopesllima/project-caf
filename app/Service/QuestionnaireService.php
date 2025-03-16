@@ -10,18 +10,18 @@ class QuestionnaireService{
 
     public static function updateQuestinnaire(){
 
-        Questionario::where('id', $_POST["questinnaire_id"])
+        Questionario::where('id', $_POST["questionnaire_id"])
         ->update(['nome' =>$_POST["name_questionnaire"]]);
 
         PerguntaQuestionario::where('questionario_id',
-         $_POST["questinnaire_id"])
+         $_POST["questionnaire_id"])
         ->delete();
 
         self::addQuestionsToQuestionnaire();
     }
 
     public static function createQuestinnaire(){
-        $_POST['questinnaire_id'] = Questionario::insertGetId([
+        $_POST['questionnaire_id'] = Questionario::insertGetId([
             'nome' =>$_POST["name_questionnaire"],
             'created_at' => now(),
             'updated_at' => now()
@@ -37,7 +37,7 @@ class QuestionnaireService{
             array_push(
                 $questionsToQuestionnaire,
                 [
-                    'questionario_id' => $_POST["questinnaire_id"],
+                    'questionario_id' => $_POST["questionnaire_id"],
                     'pergunta_id' => $perguntaId,
                     'created_at' => now(),
                     'updated_at' => now()
