@@ -14,7 +14,7 @@
                         {{ __('Select some questions to quetionnaire') }}
                     </h2>
                 </header>
-                <form method="post" action="{{ route('pergunta.store') }}" class="mt-6 space-y-6">
+                <form method="post" action="{{ route('questionario.store') }}" class="mt-6 space-y-6">
                     @csrf
                     @method('post')
                     @include('questionnaire.partials.form')

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-backward-button href="{{ route('pergunta.index') }}"></x-backward-button>
+    <x-backward-button href="{{ route('questionario.index') }}"></x-backward-button>
     <section class="d-flex justify-center align-center">
     <header class="d-flex justify-center align-center">
             <h2 class="text-lg font-medium  text-base-content">
