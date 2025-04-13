@@ -34,27 +34,13 @@
                     <input id="remember_me" type="checkbox" class="checkbox checkbox-info" name="remember" disabled>
                     <span class="ms-2 text-bg">{{ __('Remember me') }}</span>
                 </div>
-                <div class="flex flex-row content-center justify-between">
-                    <label for="remember_me" class="cursor-pointer">
-                        @if (Route::has('password.request'))
-                            <a class="flex link link-info" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
-                    </label>
-                </div>
             </div>
-
             <div class="flex pt-8 space-x-20">
                 <x-primary-button class="flex w-full space-x-2 bg-sky-500/30 btn btn-wide">
                     {{ __('Login') }}
                 </x-primary-button>
             </div>
-            <div class="flex flex-row justify-center pt-4">
-                <a class="link link-hover" href="{{ route('register') }}">
-                    {{ __('Create Account') }}
-                </a>
-            </div>
+           
         </form>
     </div>
     <script src="{{ asset('js/login.js') }}"></script>
