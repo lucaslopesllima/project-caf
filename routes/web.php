@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PerguntaController;
 use App\Http\Controllers\PessoaController;
+use App\Http\Controllers\PessoaQuestionarioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionarioController;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,10 @@ Route::middleware('auth')->group(function () {
         'pessoa'=>PessoaController::class,
         'questionario'=>QuestionarioController::class
     ]);
+
+    Route::get('responder-questionario',
+    [PessoaQuestionarioController::class,'index'])
+    ->name('solve_questionnaire');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
