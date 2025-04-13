@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-montserrat">
@@ -27,7 +26,7 @@
                     <li class="menu-title">Menus</li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
-                    <li><a href="">Projetos</a></li>
+                    <li><a href="{{ route('solve_questionnaire')}}">Responder Questionarios</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
                     <li><a href="{{ route('logout')}}">Sair</a></li>
