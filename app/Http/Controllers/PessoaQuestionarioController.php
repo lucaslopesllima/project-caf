@@ -11,6 +11,22 @@ class PessoaQuestionarioController extends Controller
    
     public function index()
     {
+        $answers = PessoaQuestionario::with(
+            ['pessoa', 'questionario']
+            ) ->select('pessoa_questionarios.id', 'pessoa_id',
+             'questionario_id','pessoa_questionarios.created_at',
+             'pessoa_questionarios.updated_at', 'pessoas.nome AS person_name',
+             'questionarios.nome AS questionnaire_name'
+             )->join('pessoas', 'pessoa_id', 'pessoas.id')
+              ->join('questionarios', 'questionario_id', 'questionarios.id')
+              ->orderBy('id','desc')
+              ->paginate(getenv('PER_PAGE'));
+
+        return view('reponseQuestionnaires.index',['answers'=>$answers]);
+    }
+
+    public function getAllQuestinnairesAnswered()
+    {
         $respostas = PessoaQuestionario::with(['pessoa', 'questionario'])->get();
         return response()->json($respostas);
     }
