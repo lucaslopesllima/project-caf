@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th class="w-1/6 px-4 py-2">Nome Questionario</th>
-                        <th class="w-1/6 px-4 py-2">Pesoa Responsável</th>
+                        <th class="w-1/6 px-4 py-2">Pessoa Responsável</th>
                         <th class="w-1/6 px-4 py-2">Ação</th>
                     </tr>
                 </thead>
@@ -21,8 +21,17 @@
                                 {{$questionnaire->person_name}}
                             </td>
                             <td class="flex">
-                                <a href="{{ route('questionario.edit',['questionario'=>$questionnaire->id]) }}" class="btn btn-ghost btn-xs">Editar</a>
-                                <form action="{{ route('questionario.destroy', ['questionario' => $questionnaire]) }}" method="POST" style="display:inline;">
+                            <a href="#" 
+                               data-url="{{ route('pessoa-questionario.answers-data', ['id' => $questionnaire->id]) }}"
+                               onclick="showAnswersModal(this.dataset.url)"
+                               class="btn btn-ghost btn-xs">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </a>
+                            <a href="{{ route('pessoa-questionario.edit', ['pessoa_questionario' => $questionnaire->id]) }}" class="btn btn-ghost btn-xs">Editar</a>
+                                <form action="{{ route('pessoa-questionario.destroy', ['pessoa_questionario' => $questionnaire]) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Tem certeza que deseja apagar?')">
@@ -43,4 +52,43 @@
             </table>
         </div>
     </main>
+
+    <div id="answersModal" class="modal">
+        <div class="modal-box w-auto max-w-3xl">
+            <h3 class="text-lg" id="modalTitle"></h3>
+            <div id="modalContent" class="py-4 min-w-[300px]"></div>
+            <div class="modal-action">
+                <button onclick="closeModal()" class="btn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function showAnswersModal(url) {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                document.getElementById('modalTitle').innerHTML = 
+                    `<b>Respostas de:</b> ${data.pessoa.nome} <br> <b>Questionario:</b> ${data.questionario.nome}`;
+                
+                const content = data.questoes_respostas.map(item => `
+                    <div class="mb-4">
+                        <p class="font-semibold">${item.pergunta}</p>
+                        <p class="text-base-content">${item.resposta || 'Sem resposta'}</p>
+                    </div>
+                `).join('');
+                
+                document.getElementById('modalContent').innerHTML = content;
+                
+                document.getElementById('answersModal').classList.add('modal-open');
+            } catch (error) {
+                console.error('Erro ao carregar as respostas:', error);
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('answersModal').classList.remove('modal-open');
+        }
+    </script>
 </x-app-layout>
