@@ -48,6 +48,9 @@
     "Create New Questionnarie":"Criar novo questionario",
     "Create questionnaire":"Criar Questionário",
     "Select some questions to quetionnaire":"Selecione as perguntas para o questionário",
-    "Update the questionnaire":"Atualizar o questionario"
+    "Update the questionnaire":"Atualizar o questionario",
+    "Update the answers":"Atualizar Respostas",
+    "Person":"Pessoa",
+    "Questionnaire":"Questionario"
 
 }
