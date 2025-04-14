@@ -14,6 +14,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-montserrat">
+    @if(session('success'))
+        <div class="alert alert-success" id="flash-alert">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="md:flex md:flex-row">
         <div class="lg:w-1/6 lg:h-screen h-3 lg:flex lg:flex-col">
             <button class="md:hidden z-1 mt-4 ms-4" id="menu-toggle">☰</button>
@@ -26,7 +31,7 @@
                     <li class="menu-title">Menus</li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
-                    <li><a href="{{ route('solve_questionnaire')}}">Responder Questionarios</a></li>
+                    <li><a href="{{ route('solved_questionnairies')}}">Responder Questionarios</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
                     <li><a href="{{ route('logout')}}">Sair</a></li>
@@ -37,6 +42,26 @@
             {{ $slot }}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashAlert = document.getElementById('flash-alert');
+            if (flashAlert) {
+                setTimeout(function() {
+                    flashAlert.style.opacity = '0';
+                    flashAlert.style.transition = 'opacity 0.5s ease';
+                    setTimeout(function() {
+                        flashAlert.remove();
+                    }, 500);
+                }, 3000); 
+            }
+        });
+    </script>
+    <style>
+        #flash-alert{
+            position: absolute;
+            z-index: 100;
+        }
+    </style>
 </body>
 
 </html>
