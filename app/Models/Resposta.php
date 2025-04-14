@@ -12,6 +12,7 @@ class Resposta extends Model
     protected $fillable = [
         'pessoa_id',
         'pergunta_id',
-        'questionario_id'
+        'questionario_id',
+        'texto'
     ];
 }
