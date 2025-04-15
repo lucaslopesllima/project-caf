@@ -26,12 +26,12 @@
                 <x-theme-selector />
                 <button class="md:hidden" id="close-toggle">&larr;</button>
                 <h1 class="text-xl font-bold mb-4">C.A.F</h1>
-                <ul class="menu menu-vertical p-0">
+                <ul class="menu menu-vertical p-0 ">
                     <li class="">Página Inicial</li>
                     <li class="menu-title">Menus</li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
-                    <li><a href="{{ route('solved_questionnairies')}}">Responder Questionarios</a></li>
+                    <li><a href="{{ route('solved_questionnairies')}}">Questionarios Respondidos</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
                     <li><a href="{{ route('logout')}}">Sair</a></li>
