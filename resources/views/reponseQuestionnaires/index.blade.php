@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="w-full">
-        <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">Escolha um questionario</h2>
-        <a class="btn btn-primary ms-3" href="{{ route('questionario.create') }}">Nova Resposta</a>
+        <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">Consulta de Questionarios Respondidos</h2>
+        <a class="btn btn-primary ms-3" href="{{ route('pessoa-questionario.create') }}">Nova Resposta</a>
         <div class="overflow-auto ms-10 me-10">
             <table class="table w-full text-left">
                 <thead>
@@ -56,8 +56,8 @@
     <div id="answersModal" class="modal">
         <div class="modal-box w-auto max-w-3xl">
             <h3 class="text-lg" id="modalTitle"></h3>
-            <div id="modalContent" class="py-4 min-w-[300px]"></div>
-            <div class="modal-action">
+            <div id="modalContent" class="py-4 min-w-[300px] h-[300px] overflow-y-auto"></div>
+            <div class="modal-action w-full flex justify-center">
                 <button onclick="closeModal()" class="btn">Fechar</button>
             </div>
         </div>
