@@ -27,6 +27,8 @@ class PessoaQuestionarioController extends Controller
         return view('reponseQuestionnaires.index',['answers'=>$answers]);
     }
 
+    
+
     public function getAllQuestinnairesAnswered()
     {
         $respostas = PessoaQuestionario::with(['pessoa', 'questionario'])->get();
@@ -46,7 +48,7 @@ class PessoaQuestionarioController extends Controller
             'questionario_id' => $request->questionario_id,
         ]);
 
-        return response()->json($pessoaQuestionario, Response::HTTP_CREATED);
+        return redirect()->route('solved_questionnairies')->with('success', 'Resposta salva com sucesso!');
     }
 
     public function questionariosPorPessoa($pessoa_id)
@@ -73,6 +75,12 @@ class PessoaQuestionarioController extends Controller
         $pessoaQuestionario->delete();
         
         return redirect()->route('solved_questionnairies')->with('success', 'Registro deletado com sucesso!');
+    }
+
+    public function create()
+    {
+
+        return view('reponseQuestionnaires.create');
     }
 
     public function edit($id)
