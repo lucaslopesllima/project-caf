@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="w-full">
         <h2 class="text-2xl font-bold ms-10 mt-4 mb-4 ms-3">Usuário Cadastrados</h2>
-        <div class="overflow-x-auto ms-10">
+        <div class="overflow-y-auto overflow-x-auto ms-10 h-[650px]"">
             <table class="table">
                 <thead>
                     <tr>
