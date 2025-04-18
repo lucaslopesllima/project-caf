@@ -1,2 +1,1 @@
-        
-        <img src="{{ asset('imagens/logo_mercado_solidario.png') }}" alt="">
+<img src="{{ asset('images/logo_mercado_solidario.png') }}" alt="">

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
@@ -41,29 +42,28 @@ class RegisteredUserController extends Controller
         $imagePath = '';
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images'); // Salva em storage/app/public/images
-            
-            // Pegando apenas o nome do arquivo (sem "public/")
-            $imageName = str_replace('public/', '', $imagePath);
+            try {
+                $imagePath = $request->file('image')->store('public/images'); 
+                $imageName = str_replace('public/', '', $imagePath);
+            } catch (\Exception $e) {
+                return back()->withErrors(['error' => 'Erro ao fazer upload da imagem. Por favor, tente novamente.'])->withInput();
+            }
         }
 
-
-
         DB::beginTransaction();
+
         try {
-            $user = User::create([
+            User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'integrationHash' =>   $imageName,
+                'integrationHash' => Str::random(40),
+                'profile_image_path'=>$imageName
             ]);
 
-            event(new Registered($user));
-
-            Auth::login($user);
-
             DB::commit();
-            return redirect(route('/dashboard', absolute: false));
+
+            return Redirect::route('profile.index')->with('status', 'user-created');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Erro ao criar usuário. Por favor, tente novamente.'])->withInput();

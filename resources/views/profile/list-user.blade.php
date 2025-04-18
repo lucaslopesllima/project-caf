@@ -1,6 +1,7 @@
 <x-app-layout>
     <main class="w-full">
         <h2 class="text-2xl font-bold ms-10 mt-4 mb-4 ms-3">Usuário Cadastrados</h2>
+        <a class="btn btn-primary ms-3" href="{{ route('register') }}">Cadastrar</a>
         <div class="overflow-y-auto overflow-x-auto ms-10 h-[650px]"">
             <table class="table">
                 <thead>
@@ -20,8 +21,8 @@
                                 <div class="avatar">
                                     <div class="mask mask-squircle h-12 w-12">
                                         <img
-                                            src="{{ asset('storage/' . $user->integrationHash) }}"
-                                            alt="Avatar Tailwind CSS Component" />
+                                            src="{{ asset('storage/imagens' . $user->profile_image_path) }}"
+                                            alt="Foto de perfil" />
                                     </div>
                                 </div>
                                 <div>

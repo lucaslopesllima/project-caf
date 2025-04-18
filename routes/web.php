@@ -14,12 +14,13 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('register', [RegisteredUserController::class, 'create'])
-->name('register');
-
-Route::post('register', [RegisteredUserController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
+    
+    Route::get('register', [RegisteredUserController::class, 'create'])
+    ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::resources([
         'profile'             => ProfileController::class,
@@ -37,10 +38,6 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::get('/logout', function () {
-        Auth::logout();
-        return redirect('/');
-    })->name('logout');
 
     Route::get('pessoa-questionario/{id}/answers-data', 
         [PessoaQuestionarioController::class, 'getAnswersData'])
