@@ -25,8 +25,8 @@
                     </svg>
                     <x-text-input id="password" class="block w-full mt-1" type="password" name="password" required
                         autocomplete="current-password" placeholder="Senha" oninput="validateLogin()" />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </label>
             </div>
             <div class="flex flex-row content-center justify-between mt-4">

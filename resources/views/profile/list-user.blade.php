@@ -18,13 +18,6 @@
                     <tr class="hover:bg-gray-900/50">
                         <td>
                             <div class="flex items-center gap-3">
-                                <div class="avatar">
-                                    <div class="mask mask-squircle h-12 w-12">
-                                        <img
-                                            src="{{ asset('storage/imagens' . $user->profile_image_path) }}"
-                                            alt="Foto de perfil" />
-                                    </div>
-                                </div>
                                 <div>
                                     <div class="font-bold">{{$user->name}}</div>
                                 </div>
@@ -34,9 +27,19 @@
                             Gerente de projetos
                         </td>
                         <td>{{$user->email}}</td>
-                        <th align="right">
+                        <td align="right">
                             <a  href="{{ route('profile.edit',['profile'=>$user]) }}" class="btn btn-ghost btn-xs">Editar</a>
-                        </th>
+                            @if (auth()->user()->id != $user->id)
+                                <form action="{{ route('profile.destroy', ['profile' => $user]) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="user_id" value="{{$user->id}}"> 
+                                        <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Tem certeza que deseja apagar?')">
+                                            Apagar
+                                        </button>
+                                </form>
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
 

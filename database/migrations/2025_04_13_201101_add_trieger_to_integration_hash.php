@@ -28,6 +28,6 @@ return new class extends Migration
     {
         DB::unprepared('DROP TRIGGER IF EXISTS tr_users_before_insert');
 
-        DB::table('users')->update(['integrationHash' => '']);
+        DB::table('users')->update(['integrationHash' => 'pwefmpeiowjfopijwpfiojwpfjwopíjfopẃijfopíowjnfpiojdsopifjdiopw0jf0']);
     }
 }; 
