@@ -1,12 +1,12 @@
 <x-app-layout>
     <main class="w-full">
-        <h2 class="text-2xl font-bold ms-10 mt-5 mb-4 ms-3">Cadastro de Questionarios</h2>
-        <a class="btn btn-primary ms-3" href="{{ route('questionario.create') }}">Cadastrar</a>
-        <div class="overflow-auto ms-10 me-10 h-max-[650px]">
+        <h2 class="text-2xl font-bold ms-10 mt-5 mb-4 ">Cadastro de Questionarios</h2>
+        <a class="btn btn-primary ms-10 mb-2" href="{{ route('questionario.create') }}">Cadastrar</a>
+        <div class="overflow-auto ms-10 me-10 h-max-[600px]">
             <table class="table w-full text-left">
                 <thead>
                     <tr>
-                        <th class="w-1/6 px-4 py-2">Pergunta</th>
+                        <th class="w-1/6 px-4 py-2">Nome do questionario</th>
                         <th class="w-1/6 px-4 py-2">Ação</th>
                     </tr>
                 </thead>

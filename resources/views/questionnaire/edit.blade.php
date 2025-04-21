@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-backward-button href="{{ route('questionario.index') }}"></x-backward-button>
     <section class="d-flex justify-center align-center">
-    <header class="d-flex justify-center align-center">
+    <header class="d-flex justify-center align-center ms-7 mt-5 bold">
             <h2 class="text-lg font-medium  text-base-content">
                 {{ __('Update the questionnaire') }}
             </h2>

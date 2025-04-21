@@ -15,8 +15,17 @@
 </head>
 <body class="font-montserrat">
     @if(session('success'))
-        <div class="alert alert-success" id="flash-alert">
+        <div class="alert alert-success" class="flash-alert">
             {{ session('success') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert bg-red-950" class="flash-alert">
+            <ul>
+                @foreach ($errors->all() as $erro)
+                    <li class="text-white">{{ $erro }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
     <div class="md:flex md:flex-row">
@@ -31,9 +40,9 @@
                     <li class="menu-title">Menus</li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
-                    <li><a href="{{ route('solved_questionnairies')}}">Questionarios Respondidos</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
+                    <li><a href="{{ route('solved_questionnairies')}}">Questionarios Respondidos</a></li>
                     <li><form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" >
@@ -49,7 +58,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const flashAlert = document.getElementById('flash-alert');
+            const flashAlert = document.getElementsByClassName('flash-alert');
             if (flashAlert) {
                 setTimeout(function() {
                     flashAlert.style.opacity = '0';
@@ -61,6 +70,8 @@
             }
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <style>
         #flash-alert{
             position: absolute;

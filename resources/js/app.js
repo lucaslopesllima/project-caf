@@ -57,3 +57,8 @@ document.addEventListener('click', function(e) {
         sidebar.classList.add('-translate-x-full');
     }
 });
+
+
+$(document).ready(function(){
+    $('#cpf').mask('000.000.000-00');
+});

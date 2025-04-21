@@ -10,9 +10,23 @@ class PessoaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $people = Pessoa::paginate(env('PER_PAGE'));
+        $filters = $request->all();
+
+        $query = Pessoa::orderBy('id','desc');
+
+        if(isset($filters["namePerson"])){
+            $query->where('nome','like','%'.$filters["namePerson"].'%');
+        } 
+
+        if(isset($filters["cpfPerson"])){
+
+            $query->where('cpf','=',removeMask($filters["cpfPerson"]));   
+        }
+
+        $people = $query->paginate(10);
+                        
         return view('people.index', compact('people'));
     }
 
@@ -36,9 +50,16 @@ class PessoaController extends Controller
             'naturalidade' => 'required',
             'bairro' => 'required',
             'escolaridade' => 'required',
+            'cpf' => 'required|min:14',
         ]);
 
-        Pessoa::create($request->all());
+        $cpfCleaned = preg_replace('/\D/', '', $request->cpf);
+
+        $data = $request->all();
+        $data['cpf'] = $cpfCleaned;
+
+        Pessoa::create($data);
+
         return redirect()->route('pessoa.index')
             ->with('success', 'Pessoa criada com sucesso.');
     }
@@ -80,5 +101,14 @@ class PessoaController extends Controller
             ->with('success', 'Pessoa excluída com sucesso.');
     }
 
-    
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getPeople()
+    {
+        return response()->json(
+            Pessoa::all()
+        );
+    }
 }

@@ -1,7 +1,25 @@
 <x-app-layout>
     <main class="w-full">
         <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">Beneficiários</h2>
-        <a class="btn btn-primary ms-3" href="{{ route('pessoa.create') }}">Cadastrar</a>
+        <a class="btn btn-primary ms-3 me-5" href="{{ route('pessoa.create') }}">Cadastrar</a>
+        <div class="flex row mt-5 justify-content-center items-center">
+            <form action="{{ route('pessoa.index')}}" method="get" class="flex row justify-content-center items-center">
+                <x-input-label for="namePerson" class="mt-3 ms-3 mb-3">
+                    Nome:&nbsp;
+                    <x-text-input minleght="3" type="text" name="namePerson" id="namePerson">
+                    </x-text-input>
+                </x-input-label>
+                <x-input-label for="cpfPerson" class="mt-3 ms-3 mb-3">
+                    Cpf:&nbsp;
+                    <x-text-input minleght="3" type="text" name="cpfPerson" id="cpfPerson">
+                    </x-text-input>
+                </x-input-label>
+                <x-secondary-button type="submit" class="ms-5 max-h-[25px]">Filtrar</x-secondary-button>
+            </form>
+            <form action="{{ route('pessoa.index')}}" method="get" class="flex row justify-content-center items-center">
+                <x-secondary-button type="submit" class="ms-5 max-h-[25px]">Limpar Filtro</x-secondary-button>
+            </form>
+        </div>
         <div class="overflow-auto mx-auto max-h-[700px]">
             <table class="table w-full text-left ">
                 <thead>
@@ -10,6 +28,7 @@
                         <th class="w-1/12 px-4 py-2">Idade</th>
                         <th class="w-1/12 px-4 py-2">Filhos</th>
                         <th class="w-1/6 px-4 py-2">Naturalidade</th>
+                        <th class="w-1/6 px-4 py-2">CPF</th>
                         <th class="w-1/6 px-4 py-2">Última atualização</th>
                         <th class="w-1/6 px-4 py-2">Ação</th>
                     </tr>
@@ -29,9 +48,11 @@
                         <td class="px-4 py-2 truncate">
                             {{$person->naturalidade}}
                         </td>
-
+                        <td class="px-4 py-2 truncate">
+                            {{ formattMask($person->cpf, '###.###.###-##') }}
+                        </td>
                         <td class="px-4 py-2 whitespace-nowrap">
-                            {{$person->updated_at}}
+                            {{ \Carbon\Carbon::parse($person->updated_at)->format('d/m/Y') }}
                         </td>
                         <td>
                             <a href="{{ route('pessoa.edit',['pessoa'=>$person]) }}" class="btn btn-ghost btn-xs">Editar</a>

@@ -91,8 +91,13 @@ function popularSelect(id, dados) {
     });
 }
 
+async function getPeople(){
+    const people = await fetch('pessoas_questionario');
+    debugger
+}
 
 window.addEventListener("DOMContentLoaded", () => {
+    
     popularSelect("pessoa", pessoas);
     popularSelect("questionario", questionarios);
 });
