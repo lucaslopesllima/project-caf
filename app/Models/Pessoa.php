@@ -17,7 +17,8 @@ class Pessoa extends Model
         'quantidade_filhos',
         'naturalidade',
         'bairro',
-        'escolaridade'
+        'escolaridade',
+        'cpf'
     ];
 
     

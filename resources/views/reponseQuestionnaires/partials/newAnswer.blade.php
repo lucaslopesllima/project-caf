@@ -6,18 +6,18 @@
 </div>
 <div>
     <label for="questionario" class="block text-md font-medium text-gray-700 mb-1">Questionário</label>
-    <select id="questionario" onchange="mostrarFormulario()" class="min-w-[550px] rounded px-3 py-2">
+    <select id="questionario" onchange="showForm()" class="min-w-[550px] rounded px-3 py-2">
         <option value="">Selecione um questionário</option>
     </select>
 </div>
-<form onsubmit="enviarRespostas(event)" style="display: flex; justify-content: center; align-items: center;">
+<form onsubmit="sendAnswer(event)" style="display: flex; justify-content: center; align-items: center;">
     <div id="formulario"></div>
     <button type="submit" id="submitBtn" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 hidden">
         Enviar Respostas
     </button>
 </form>
 <script>
-    function mostrarFormulario() {
+    function showForm() {
         const qid = parseInt(document.getElementById("questionario").value);
         const container = document.getElementById("formulario");
         container.innerHTML = "";
@@ -60,7 +60,7 @@
         document.getElementById("submitBtn").classList.remove("hidden");
     }
     
-function enviarRespostas(e) {
+function sendAnswer(e) {
     e.preventDefault();
     const pessoaId = document.getElementById("pessoa").value;
     const questionarioId = document.getElementById("questionario").value;
@@ -80,53 +80,6 @@ function enviarRespostas(e) {
     alert("Respostas enviadas com sucesso!");
 }
 
-
-
-const pessoas = [{
-        id: 1,
-        nome: "João Silva"
-    },
-    {
-        id: 2,
-        nome: "Maria Souza"
-    },
-    {
-        id: 3,
-        nome: "Carlos Lima"
-    }
-];
-
-const questionarios = [{
-        id: 1,
-        titulo: "Avaliação Inicial",
-        perguntas: [{
-                id: 101,
-                texto: "Como você se sente hoje?",
-                tipo: "text"
-            },
-            {
-                id: 102,
-                texto: "Está com dores?",
-                tipo: "alternative"
-            }
-        ]
-    },
-    {
-        id: 2,
-        titulo: "Retorno Mensal",
-        perguntas: [{
-                id: 201,
-                texto: "Houve evolução?",
-                tipo: "alternative"
-            },
-            {
-                id: 202,
-                texto: "Observações:",
-                tipo: "text"
-            }
-        ]
-    }
-];
 
 function popularSelect(id, dados) {
     const select = document.getElementById(id);

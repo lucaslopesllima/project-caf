@@ -79,4 +79,6 @@ class PessoaController extends Controller
         return redirect()->route('pessoa.index')
             ->with('success', 'Pessoa excluída com sucesso.');
     }
+
+    
 }
