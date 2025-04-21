@@ -55,14 +55,7 @@ class QuestionarioController extends Controller
             ->with('success', 'Questionário criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Questionario $questionario)
-    {
-        return view('questionnaire.show', compact('questionario'));
-    }
-
+  
     /**
      * Show the form for editing the specified resource.
      */
@@ -70,7 +63,7 @@ class QuestionarioController extends Controller
 
         $questions_from_questionnaire =
          PerguntaQuestionario::
-        getWholeQuetionFromQuestionnaire($questionario->id);
+        getWholeQuestionFromQuestionnaire($questionario->id);
 
         $questionnaire_id = $questionario->id;
         $questions = Pergunta::orderBy('id', 'desc')->get();
@@ -106,5 +99,12 @@ class QuestionarioController extends Controller
         $questionario->delete();
         return redirect()->route('questionario.index')
             ->with('success', 'Questionário excluído com sucesso.');
+    }
+
+    public function getWholeQuestions($id)
+    {
+        
+    
+        return response()->json($questionnaire);
     }
 }

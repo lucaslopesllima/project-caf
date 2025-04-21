@@ -79,7 +79,7 @@ class PessoaQuestionarioController extends Controller
         $pessoaQuestionario = PessoaQuestionario::with(['pessoa', 'questionario'])
             ->findOrFail($id);
 
-        $perguntas = PerguntaQuestionario::getWholeQuetionFromQuestionnaire($pessoaQuestionario->questionario_id);
+        $perguntas = PerguntaQuestionario::getWholeQuestionFromQuestionnaire($pessoaQuestionario->questionario_id);
         
         $respostas = Resposta::where([
             'pessoa_id' => $pessoaQuestionario->pessoa_id,
@@ -126,7 +126,7 @@ class PessoaQuestionarioController extends Controller
         $pessoaQuestionario = PessoaQuestionario::with(['pessoa', 'questionario'])
             ->findOrFail($id);
 
-        $perguntas = PerguntaQuestionario::getWholeQuetionFromQuestionnaire($pessoaQuestionario->questionario_id);
+        $perguntas = PerguntaQuestionario::getWholeQuestionFromQuestionnaire($pessoaQuestionario->questionario_id);
         
         $respostas = Resposta::where([
             'pessoa_id' => $pessoaQuestionario->pessoa_id,

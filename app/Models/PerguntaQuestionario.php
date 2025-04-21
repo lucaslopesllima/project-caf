@@ -21,7 +21,7 @@ class PerguntaQuestionario extends Model
         return $this->belongsTo(Pergunta::class);
     }
 
-    public static function getWholeQuetionFromQuestionnaire($questionarioId)
+    public static function getWholeQuestionFromQuestionnaire($questionarioId)
     {
         return self::where('questionario_id', $questionarioId)
             ->join('perguntas', 'pergunta_questionarios.pergunta_id', '=', 'perguntas.id')
