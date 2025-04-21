@@ -2,12 +2,18 @@
     <label for="pessoa" class="block text-md font-medium text-gray-700 mb-1">Pessoa</label>
     <select id="pessoa" class="min-w-[550px] border rounded px-3 py-2">
         <option value="">Selecione uma pessoa</option>
+        @foreach ($people as $person)
+            <option value="{{$person->id}}">{{ $person->nome }}</option>
+        @endforeach
     </select>
 </div>
 <div>
     <label for="questionario" class="block text-md font-medium text-gray-700 mb-1">Questionário</label>
     <select id="questionario" onchange="showForm()" class="min-w-[550px] rounded px-3 py-2">
         <option value="">Selecione um questionário</option>
+        @foreach ($questionnaires as $questionnaire)
+         <option value="{{$questionnaire->id}}">{{ $questionnaire->nome }}</option> 
+        @endforeach
     </select>
 </div>
 <form onsubmit="sendAnswer(event)" style="display: flex; justify-content: center; align-items: center;">
@@ -17,15 +23,17 @@
     </button>
 </form>
 <script>
-    function showForm() {
+    async function showForm() {
         const qid = parseInt(document.getElementById("questionario").value);
         const container = document.getElementById("formulario");
         container.innerHTML = "";
         
-        const questionario = questionarios.find(q => q.id === qid);
+        const response = await fetch(`/getWholeQuestions/${qid}`);
+        const data = await response.json();
+        console.log(data)
         if (!questionario) return;
         
-        questionario.perguntas.forEach(pergunta => {
+        data.perguntas.forEach(pergunta => {
             const wrapper = document.createElement("div");
             wrapper.className = "mb-4";
             
@@ -80,25 +88,4 @@ function sendAnswer(e) {
     alert("Respostas enviadas com sucesso!");
 }
 
-
-function popularSelect(id, dados) {
-    const select = document.getElementById(id);
-    dados.forEach(d => {
-        const option = document.createElement("option");
-        option.value = d.id;
-        option.textContent = d.nome || d.titulo;
-        select.appendChild(option);
-    });
-}
-
-async function getPeople(){
-    const people = await fetch('pessoas_questionario');
-    debugger
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-    
-    popularSelect("pessoa", pessoas);
-    popularSelect("questionario", questionarios);
-});
 </script>
