@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PessoaQuestionario;
 use App\Models\PerguntaQuestionario;
+use App\Models\Pessoa;
+use App\Models\Questionario;
 use App\Models\Resposta;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -39,14 +41,6 @@ class PessoaQuestionarioController extends Controller
         return view('reponseQuestionnaires.index',['answers'=>$answers]);
     }
 
-    
-
-    public function getAllQuestinnairesAnswered()
-    {
-        $respostas = PessoaQuestionario::with(['pessoa', 'questionario'])->get();
-        return response()->json($respostas);
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -63,24 +57,6 @@ class PessoaQuestionarioController extends Controller
         return redirect()->route('solved_questionnairies')->with('success', 'Resposta salva com sucesso!');
     }
 
-    public function questionariosPorPessoa($pessoa_id)
-    {
-        $questionarios = PessoaQuestionario::where('pessoa_id', $pessoa_id)
-            ->with('questionario')
-            ->get();
-        
-        return response()->json($questionarios);
-    }
-
-    public function pessoasPorQuestionario($questionario_id)
-    {
-        $pessoas = PessoaQuestionario::where('questionario_id', $questionario_id)
-            ->with('pessoa')
-            ->get();
-        
-        return response()->json($pessoas);
-    }
-
     public function destroy($id)
     {
         $pessoaQuestionario = PessoaQuestionario::findOrFail($id);
@@ -90,9 +66,12 @@ class PessoaQuestionarioController extends Controller
     }
 
     public function create()
-    {
+    {   
+        $people = Pessoa::all();
+        $questionnaires = Questionario::all();
 
-        return view('reponseQuestionnaires.create');
+        return view('reponseQuestionnaires.create',['people' => $people,
+                                                    'questionnaires' => $questionnaires]);
     }
 
     public function edit($id)
