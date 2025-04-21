@@ -10,7 +10,7 @@
                     </x-text-input>
                 </x-input-label>
                 <x-input-label for="cpfPerson" class="mt-3 ms-3 mb-3">
-                    Cpf:&nbsp;
+                    CPF:&nbsp;
                     <x-text-input minleght="3" type="text" name="cpfPerson" id="cpfPerson">
                     </x-text-input>
                 </x-input-label>
