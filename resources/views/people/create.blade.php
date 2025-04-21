@@ -17,7 +17,7 @@
                 <form method="post" action="{{ route('pessoa.store') }}" class="mt-6 space-y-6">
                     @csrf
                     @method('post')
-                    @include('people.partials.person-form')
+                    @include('people.partials.form')
                 </form>
             </section>
         </div>

@@ -2,8 +2,8 @@
     <main class="w-full">
         <h2 class="text-2xl font-bold ms-10 mt-4 mb-4 ms-3">Usuário Cadastrados</h2>
         <a class="btn btn-primary ms-3" href="{{ route('register') }}">Cadastrar</a>
-        <div class="overflow-y-auto overflow-x-auto ms-10 h-[650px]"">
-            <table class="table">
+        <div class="overflow-y-auto overflow-x-auto ms-10 h-[650px]">
+            <table class="table min-h-32 ">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -15,20 +15,20 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
-                    <tr class="hover:bg-gray-900/50">
-                        <td>
+                    <tr class="hover:bg-gray-900/50 ">
+                        <td >
                             <div class="flex items-center gap-3">
                                 <div>
                                     <div class="font-bold">{{$user->name}}</div>
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            Gerente de projetos
+                        <td >
+                            {{$user->role}}
                         </td>
-                        <td>{{$user->email}}</td>
-                        <td align="right">
-                            <a  href="{{ route('profile.edit',['profile'=>$user]) }}" class="btn btn-ghost btn-xs">Editar</a>
+                        <td >{{$user->email}}</td>
+                        <td align="right" >
+                            <a  href="{{ route('profile.edit',['profile'=>$user->id]) }}" class="btn btn-ghost btn-xs">Editar</a>
                             @if (auth()->user()->id != $user->id)
                                 <form action="{{ route('profile.destroy', ['profile' => $user]) }}" method="POST" style="display:inline;">
                                         @csrf
@@ -55,7 +55,5 @@
                 </tfoot>
             </table>
         </div>
-
-
     </main>
 </x-app-layout>

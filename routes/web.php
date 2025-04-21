@@ -6,8 +6,6 @@ use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\PessoaQuestionarioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionarioController;
-use App\Models\PessoaQuestionario;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('pessoa-questionario/{id}/answers-data', 
         [PessoaQuestionarioController::class, 'getAnswersData'])
         ->name('pessoa-questionario.answers-data');
+
 });
 
 require __DIR__.'/auth.php';
