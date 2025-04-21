@@ -2,7 +2,7 @@
     <main class="w-full">
         <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">Consulta de Questionarios Respondidos</h2>
         <a class="btn btn-primary ms-3" href="{{ route('pessoa-questionario.create') }}">Nova Resposta</a>
-        <div class="overflow-auto ms-10 me-10">
+        <div class="overflow-auto ms-10 me-10 max-h-[700px]">
             <table class="table w-full text-left">
                 <thead>
                     <tr>
@@ -42,14 +42,10 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            @include('paginator', ['paginator' => $answers])
-                        </td>
-                    </tr>
-                </tfoot>
             </table>
+        </div>
+        <div class="flex align-items-start">
+            @include('paginator', ['paginator' => $answers])
         </div>
     </main>
 
