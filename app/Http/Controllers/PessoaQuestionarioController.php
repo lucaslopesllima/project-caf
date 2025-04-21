@@ -11,18 +11,30 @@ use Illuminate\Http\Response;
 class PessoaQuestionarioController extends Controller
 {
    
-    public function index()
-    {
-        $answers = PessoaQuestionario::with(
-            ['pessoa', 'questionario']
-            ) ->select('pessoa_questionarios.id', 'pessoa_id',
-             'questionario_id','pessoa_questionarios.created_at',
-             'pessoa_questionarios.updated_at', 'pessoas.nome AS person_name',
-             'questionarios.nome AS questionnaire_name'
-             )->join('pessoas', 'pessoa_id', 'pessoas.id')
-              ->join('questionarios', 'questionario_id', 'questionarios.id')
-              ->orderBy('id','desc')
-              ->paginate(getenv('PER_PAGE'));
+    public function index(Request $request)
+    {   
+
+        $filters = $request->all();
+        
+        $query = PessoaQuestionario::with(['pessoa', 'questionario'])
+            ->select('pessoa_questionarios.id', 'pessoa_id',
+                     'questionario_id','pessoa_questionarios.created_at',
+                     'pessoa_questionarios.updated_at', 'pessoas.nome AS person_name',
+                     'questionarios.nome AS questionnaire_name')
+            ->join('pessoas', 'pessoa_id', 'pessoas.id')
+            ->join('questionarios', 'questionario_id', 'questionarios.id')
+            ->orderBy('id','desc');
+            
+            if(isset($filters["ownerName"])){
+                $query->where('pessoas.nome','like','%'.$filters["ownerName"].'%');
+            } 
+    
+            if(isset($filters["nameQuetionnaire"])){
+    
+                $query->where('questionarios.nome','like','%'.$filters["nameQuetionnaire"].'%');   
+            }
+    
+            $answers = $query->paginate(10);
 
         return view('reponseQuestionnaires.index',['answers'=>$answers]);
     }

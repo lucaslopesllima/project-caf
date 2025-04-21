@@ -13,13 +13,19 @@ class QuestionarioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $questionnaires = 
-        Questionario::orderBy('id','desc')
-        ->paginate(env('PER_PAGE'));
-        return view('questionnaire.index', 
-        compact('questionnaires'));
+        $query = Questionario::orderBy('id','desc');
+
+        $filters = $request->all();
+
+        if(isset($filters["nameQuestionnaire"])){
+            $query->where('nome','like','%'.$filters["nameQuestionnaire"].'%');
+        } 
+
+        $questionnaires = $query->paginate(10);
+
+        return view('questionnaire.index', compact('questionnaires'));
     }
 
     /**

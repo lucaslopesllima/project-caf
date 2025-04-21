@@ -10,9 +10,18 @@ class PerguntaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $questions = Pergunta::orderBy('id', 'desc')->paginate(env('PER_PAGE'));
+        $query = Pergunta::orderBy('id', 'desc');
+
+        $filters = $request->all();
+
+        if(isset($filters["nameQuestion"])){
+            $query->where('texto','like','%'.$filters["nameQuestion"].'%');
+        } 
+
+        $questions = $query->paginate(10);
+
         return view('question.index', compact('questions'));
     }
 
