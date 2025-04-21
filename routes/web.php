@@ -41,6 +41,14 @@ Route::middleware('auth')->group(function () {
         [PessoaQuestionarioController::class, 'getAnswersData'])
         ->name('pessoa-questionario.answers-data');
 
+
+    Route::get('getWholeQuestions/{id}', 
+         [
+             QuestionarioController::class,
+            'getWholeQuestions'
+         ])
+        ->name('questionario.getWholeQuestions');
+
 });
 
 require __DIR__.'/auth.php';
