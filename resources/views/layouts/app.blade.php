@@ -11,22 +11,21 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-montserrat">
     @if(session('success'))
-        <div class="alert alert-success" class="flash-alert">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success flash-alert" >
+        {{ session('success') }}
+    </div>
     @endif
     @if ($errors->any())
-        <div class="alert bg-red-950" class="flash-alert">
-            <ul>
-                @foreach ($errors->all() as $erro)
-                    <li class="text-white">{{ $erro }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert bg-red-950 flash-alert" >
+        <ul>
+            @foreach ($errors->all() as $erro)
+            <li class="text-white">{{ $erro }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
     <div class="md:flex md:flex-row">
         <div class="lg:w-1/6 lg:h-screen h-3 lg:flex lg:flex-col">
@@ -56,6 +55,7 @@
             {{ $slot }}
         </div>
     </div>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const flashAlert = document.querySelector('.flash-alert');
@@ -69,15 +69,15 @@
                 }, 3000); 
             }
         });
-    </script>
+        </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <style>
-        #flash-alert{
+        .flash-alert{
             position: absolute;
             z-index: 100;
         }
-    </style>
+        </style>
 </body>
 
 </html>

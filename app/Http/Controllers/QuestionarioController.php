@@ -35,6 +35,7 @@ class QuestionarioController extends Controller
     {
         $questions = Pergunta::orderBy('id', 'desc')
         ->get();
+        
         return view('questionnaire.create'
         , compact('questions'));
     }
@@ -103,8 +104,10 @@ class QuestionarioController extends Controller
 
     public function getWholeQuestions($id)
     {
-        
-    
-        return response()->json($questionnaire);
+        $questions = PerguntaQuestionario::getWholeQuestionFromQuestionnaire($id);
+
+        return response()->json([
+                'questions' => $questions
+        ]);
     }
 }

@@ -4,9 +4,9 @@
         Responda o questionario
     </h2>
     <div class="max-w-7xl sm:px-6 lg:px-8 space-y-6">
-       <form method="post" action="{{ route('pessoa-questionario.store') }}" class="mt-6 space-y-6">
+       <form method="post" action="{{ route('pessoa-questionario.store') }}" id="formAnswer" class="mt-6 space-y-6">
            @csrf
-           @method('post')
+           @method('POST')
            @include('reponseQuestionnaires.partials.form')
        </form>
     </div>

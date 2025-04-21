@@ -27,7 +27,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-           "app/Helpers/masks.php"
+           "app/Helpers/masks.php",
+           "app/Helpers/RedisHelper.php"
         ]
     },
     "autoload-dev": {

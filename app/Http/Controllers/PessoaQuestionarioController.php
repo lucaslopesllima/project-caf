@@ -7,8 +7,8 @@ use App\Models\PerguntaQuestionario;
 use App\Models\Pessoa;
 use App\Models\Questionario;
 use App\Models\Resposta;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PessoaQuestionarioController extends Controller
 {
@@ -44,15 +44,49 @@ class PessoaQuestionarioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pessoa_id' => 'required|exists:pessoas,id',
-            'questionario_id' => 'required|exists:questionarios,id',
-            'respostas' => 'required|array'
+            'personId' => 'required|exists:pessoas,id',
+            'questionnaireId' => 'required|exists:questionarios,id',
         ]);
 
-        $pessoaQuestionario = PessoaQuestionario::create([
-            'pessoa_id' => $request->pessoa_id,
-            'questionario_id' => $request->questionario_id,
-        ]);
+        $personId = $request->input('personId');
+        $questionnaireId = $request->input('questionnaireId');
+        
+        $allData = $request->all();
+        $dataPrepared = [];
+
+        foreach ($allData as $key => $value) {
+            if (str_starts_with($key, 'resposta_')) {
+
+                $questionId = str_replace('resposta_', '', $key);
+
+                array_push($dataPrepared,
+                [
+                    'pessoa_id'=>$personId,
+                    'questionario_id'=>$questionnaireId,
+                    'pergunta_id'=>$questionId,
+                    'texto'=>$value,
+                    'created_at'=>date('Y-m-d H:s:i'),
+                    'updated_at'=>date('Y-m-d H:s:i')
+                ]);
+            }
+        }
+        
+        try {
+            
+            Resposta::insert($dataPrepared);
+            PessoaQuestionario::insert(
+                [
+                    'pessoa_id'=>$personId,
+                    'questionario_id'=>$questionnaireId,
+                    'created_at'=>date('Y-m-d H:s:i'),
+                    'updated_at'=>date('Y-m-d H:s:i')
+                ]
+            );
+        } catch (Exception $e) {
+            
+            return redirect()->back()->withErrors("Erro ao salvar as resposta, tente novamente!");
+        }
+
 
         return redirect()->route('solved_questionnairies')->with('success', 'Resposta salva com sucesso!');
     }
