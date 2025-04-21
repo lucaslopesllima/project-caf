@@ -58,7 +58,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const flashAlert = document.getElementsByClassName('flash-alert');
+            const flashAlert = document.querySelector('.flash-alert');
             if (flashAlert) {
                 setTimeout(function() {
                     flashAlert.style.opacity = '0';
