@@ -1,41 +1,104 @@
-<div class="mx-auto p-6 rounded-lg ">
-    <x-text-input placeholder="Nome do questionario" name="name_questionnaire" value="{{$name_questionnrie??''}}" class="w-full p-2 border rounded mb-4" ></x-text-input>
-    <input type="hidden" name="questionnaire_id" value="{{$questionnaire_id ?? ''}}">
-    <input type="text" id="search" placeholder="Filtrar pergunta..." class="w-full p-2 border rounded mb-4" onkeyup="filterQuestions()">
-        <ul id="questionList" style="overflow-x: auto; height: 350px;" class="space-y-2">
-            @isset($questions_from_questionnaire)
-                @foreach ($questions as $question)
-                    <li class="flex items-center space-x-2">
-                    <input type="checkbox" 
-                               name="questions[]" 
-                               value="{{ $question->id }}" 
-                               class="question-checkbox"
-                               {{ collect($questions_from_questionnaire)->contains('id', $question->id) ? 'checked' : '' }}>
-                        <span>{{$question->texto}}</span>
-                    </li>
-                @endforeach
-            @else
-                @foreach ($questions as $question)
-                    <li class="flex items-center space-x-2">
-                        <input type="checkbox" name="questions[]" value="{{$question->id}}" class="question-checkbox">
-                        <span>{{$question->texto}}</span>
-                    </li>
-                @endforeach
-            @endisset
-        </ul>
-    <div class="flex justify-center w-full mt-3">
-        <x-primary-button  class="mt-3">{{ __('Save') }}</x-primary-button>
-    </div>
+<div>
+    <label for="pessoa" class="block text-md font-medium text-gray-700 mb-1">Pessoa</label>
+    <select id="pessoa" class="min-w-[550px] border rounded px-3 py-2">
+        <option value="">Selecione uma pessoa</option>
+    </select>
 </div>
-
+<div>
+    <label for="questionario" class="block text-md font-medium text-gray-700 mb-1">Questionário</label>
+    <select id="questionario" onchange="showForm()" class="min-w-[550px] rounded px-3 py-2">
+        <option value="">Selecione um questionário</option>
+    </select>
+</div>
+<form onsubmit="sendAnswer(event)" style="display: flex; justify-content: center; align-items: center;">
+    <div id="formulario"></div>
+    <button type="submit" id="submitBtn" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 hidden">
+        Enviar Respostas
+    </button>
+</form>
 <script>
-    function filterQuestions() {
-        let input = document.getElementById("search").value.toLowerCase();
-        let items = document.querySelectorAll("#questionList li");
+    function showForm() {
+        const qid = parseInt(document.getElementById("questionario").value);
+        const container = document.getElementById("formulario");
+        container.innerHTML = "";
+        
+        const questionario = questionarios.find(q => q.id === qid);
+        if (!questionario) return;
+        
+        questionario.perguntas.forEach(pergunta => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "mb-4";
+            
+            const label = document.createElement("label");
+            label.className = "block font-medium text-gray-700 mb-1";
+            label.textContent = pergunta.texto;
+            
+            wrapper.appendChild(label);
+            
+            let input;
+            if (pergunta.tipo === "text") {
 
-        items.forEach(item => {
-            let text = item.textContent.toLowerCase();
-            item.style.display = text.includes(input) ? "flex" : "none";
+                input = document.createElement("input");
+                input.type = "text";
+                input.className = "w-full border rounded px-3 py-2";
+            } else if (pergunta.tipo === "alternative") {
+
+                input = document.createElement("select");
+                input.className = "w-full border rounded px-3 py-2";
+                input.innerHTML = `
+                <option value="">Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+                `;
+            }
+            
+            input.name = `resposta_${pergunta.id}`;
+            wrapper.appendChild(input);
+            container.appendChild(wrapper);
         });
+
+        document.getElementById("submitBtn").classList.remove("hidden");
     }
+    
+function sendAnswer(e) {
+    e.preventDefault();
+    const pessoaId = document.getElementById("pessoa").value;
+    const questionarioId = document.getElementById("questionario").value;
+    const respostas = {};
+    
+    document.querySelectorAll("#formulario [name^=resposta_]").forEach(input => {
+        respostas[input.name] = input.value;
+    });
+    
+    console.log("Enviando dados para o servidor:");
+    console.log({
+        pessoaId,
+        questionarioId,
+        respostas
+    });
+    
+    alert("Respostas enviadas com sucesso!");
+}
+
+
+function popularSelect(id, dados) {
+    const select = document.getElementById(id);
+    dados.forEach(d => {
+        const option = document.createElement("option");
+        option.value = d.id;
+        option.textContent = d.nome || d.titulo;
+        select.appendChild(option);
+    });
+}
+
+async function getPeople(){
+    const people = await fetch('pessoas_questionario');
+    debugger
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    
+    popularSelect("pessoa", pessoas);
+    popularSelect("questionario", questionarios);
+});
 </script>
