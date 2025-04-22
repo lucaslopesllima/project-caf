@@ -1,4 +1,4 @@
-<div class="absolute flex flex-row-reverse shrink right-1">
+<div class="absolute flex flex-row-reverse shrink right-1 mt-3">
     <label class="swap swap-rotate">
         <input id="theme" type="checkbox" />
         <svg

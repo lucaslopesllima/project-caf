@@ -33,7 +33,7 @@
             <aside class="fixed md:relative inset-y-0 left-0 w-64 bg-base-200 p-4 z-50 transition-transform transform -translate-x-full md:translate-x-0 md:h-full" id="sidebar">
                 <x-theme-selector />
                 <button class="md:hidden" id="close-toggle">&larr;</button>
-                <h1 class="text-xl font-bold mb-4">C.A.F</h1>
+                <h2 class="text-xl font-bold mb-4">C.A.F - {{ Auth::user()->name }}</h2>
                 <ul class="menu menu-vertical p-0 ">
                     <li class=""><a href="{{ route('dashboard')}}">Página Inicial</a></li>
                     <li class="menu-title">Menus</li>
