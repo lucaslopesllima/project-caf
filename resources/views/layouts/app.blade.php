@@ -36,7 +36,7 @@
                 <h2 class="text-xl font-bold mb-4">C.A.F - {{ Auth::user()->name }}</h2>
                 <ul class="menu menu-vertical p-0 ">
                     <li class=""><a href="{{ route('dashboard')}}">Página Inicial</a></li>
-                    <li class="menu-title">Menus</li>
+                    <li><a href="{{ route('questionario.index') }}">Fila de Espera</a></li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
