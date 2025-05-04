@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pessoa;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QueueController extends Controller
 {
@@ -22,35 +23,73 @@ class QueueController extends Controller
      *
      * @return \Illuminate\Support\Collection List of Pessoa objects filtered according to the given criteria.
      */
-    function index($priority = null, $dateStart = null, $dateEnd = null) {
+    function index(Request $request) {
+        
+            $where = ['was_attended' => 0];
+        
+            $sql = "
+                SELECT *
+                FROM (
+                    SELECT 
+                        id,
+                        nome,
+                        priority,
+                        created_at,
+                        ROW_NUMBER() OVER (ORDER BY priority ASC, id ASC) AS posicao
+                    FROM pessoas
+                    WHERE was_attended = :was_attended";
+        
+            $bindings = ['was_attended' => 0];
+        
+            if (!is_null($request->priority)) {
 
-        $query = Pessoa::where('was_attended', 0);
+                $sql .= " AND priority = :priority";
+                $bindings['priority'] = $request->priority;
+            }
+        
+            if (!is_null($request->dateStart) && !is_null($request->dateEnd)) {
 
-        if (!is_null($priority)) {
-            $query->where('priority', $priority);
+                $sql .= " AND created_at BETWEEN :startDate AND :endDate";
+                $bindings['startDate'] = Carbon::parse($request->dateStart)->startOfDay()->toDateTimeString();
+                $bindings['endDate'] = Carbon::parse($request->dateEnd)->endOfDay()->toDateTimeString();
+
+            } elseif (!is_null($request->dateStart)) {
+
+                $sql .= " AND created_at >= :startDate";
+                $bindings['startDate'] = Carbon::parse($request->dateStart)->startOfDay()->toDateTimeString();
+            } elseif (!is_null($request->dateEnd)) {
+                
+                $sql .= " AND created_at <= :endDate";
+                $bindings['endDate'] = Carbon::parse($request->dateEnd)->endOfDay()->toDateTimeString();
+            }
+        
+            $sql .= ") AS fila";
+        
+            if (!is_null($request->namePerson)) {
+                $sql .= " WHERE nome LIKE :namePerson";
+                $bindings['namePerson'] = '%' . $request->namePerson . '%';
+
+            }
+        
+            $perPage = 10;
+            $currentPage = $request->get('page', 1);
+            $offset = ($currentPage - 1) * $perPage;
+        
+            $paginated = collect(DB::select("$sql LIMIT $perPage OFFSET $offset", $bindings));
+        
+            $total = count(DB::select($sql, $bindings));
+        
+            $queue = new \Illuminate\Pagination\LengthAwarePaginator(
+                            $paginated,
+                            $total,
+                            $perPage,
+                            $currentPage,
+                            ['path' => $request->url(), 'query' => $request->query()]
+                        );
+        
+            return view('queue.index', compact('queue'));
         }
-
-        if (!is_null($dateStart) && !is_null($dateEnd)) {
-
-            $query->whereBetween('created_at', [
-                Carbon::parse($dateStart)->startOfDay(),
-                Carbon::parse($dateEnd)->endOfDay()
-            ]);
-
-        } elseif (!is_null($dateStart)) {
-
-            $query->where('created_at', '>=', Carbon::parse($dateStart)->startOfDay());
-        } elseif (!is_null($dateEnd)) {
-
-            $query->where('created_at', '<=', Carbon::parse($dateEnd)->endOfDay());
-        }
-
-        $queue =  $query->orderBy('priority', 'asc')
-                     ->orderBy('id', 'asc')
-                     ->paginate(10);
-
-        return view('queue.index', compact('queue'));
-    }
+        
 
     /**
      * Set the attended status for a person.
