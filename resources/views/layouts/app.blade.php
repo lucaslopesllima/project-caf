@@ -36,12 +36,12 @@
                 <h2 class="text-xl font-bold mb-4">C.A.F - {{ Auth::user()->name }}</h2>
                 <ul class="menu menu-vertical p-0 ">
                     <li class=""><a href="{{ route('dashboard')}}">Página Inicial</a></li>
-                    <li><a href="{{ route('questionario.index') }}">Fila de Espera</a></li>
+                    <li><a href="{{ route('queue.index') }}">Fila de Espera</a></li>
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index')}}">Beneficiarios</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
-                    <li><a href="{{ route('solved_questionnairies')}}">Questionarios Respondidos</a></li>
+                    <li><a href="{{ route('solved_questionnairies')}}">Respondidos</a></li>
                     <li><form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" >
@@ -72,6 +72,7 @@
         </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .flash-alert{
             position: absolute;
