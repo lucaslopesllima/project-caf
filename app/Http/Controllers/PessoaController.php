@@ -14,7 +14,13 @@ class PessoaController extends Controller
     {
         $filters = $request->all();
 
+        $tipo = $request->query('tipo');
+
         $query = Pessoa::orderBy('id','desc');
+
+        if($tipo=='voluntario'){
+            $query->where('is_volunteer','=',1);
+        }
 
         if(isset($filters["namePerson"])){
             $query->where('nome','like','%'.$filters["namePerson"].'%');
@@ -24,18 +30,23 @@ class PessoaController extends Controller
 
             $query->where('cpf','=',removeMask($filters["cpfPerson"]));   
         }
+        
 
         $people = $query->paginate(10);
                         
-        return view('people.index', compact('people'));
+        return view('people.index', ['people'=>$people,'is_volunteer' => $tipo]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('people.create');
+        
+        return view('people.create',
+            [
+                'is_volunteer' => $request->query('tipo')
+            ]);
     }
 
     /**
@@ -103,12 +114,49 @@ class PessoaController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display how much people there are.
+     * return int
      */
-    public function getPeople()
+    public function getQuantityNotVolunteer()
     {
-        return response()->json(
-            Pessoa::all()
-        );
+        return Pessoa::where('is_volunteer', 0)->count();
+    }
+
+    /**
+     * Display how much people there are.
+     * return int
+     */
+    public function getQuantityVolunteer()
+    {
+        return Pessoa::where('is_volunteer', 1)->count();
+    }
+
+    public function getEachPeopleRegisteredPerMonth(){
+        $countable = Pessoa::getEachPeopleRegisteredPerMonth();
+        $monthMap = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 0,
+            8 => 0,
+            9 => 0,
+            10 => 0,
+            11 => 0,
+            12 => 0
+        ];
+
+        foreach($countable as $month => $value){
+            $monthMap[$month] = $value["count"];
+        }
+        
+        return array_values($monthMap);
+    }
+
+
+    public function getLastRegisteredPeople(){
+        return Pessoa::getLastRegisteredPeople();
     }
 }

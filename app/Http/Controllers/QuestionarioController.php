@@ -6,6 +6,7 @@ use App\Models\Pergunta;
 use App\Models\PerguntaQuestionario;
 use Illuminate\Http\Request;
 use App\Models\Questionario;
+use App\Models\Resposta;
 use App\Service\QuestionnaireService;
 
 class QuestionarioController extends Controller
@@ -109,5 +110,9 @@ class QuestionarioController extends Controller
         return response()->json([
                 'questions' => $questions
         ]);
+    }
+
+    public function getHowMuchQuestionnairiesReplied(){
+        return Resposta::groupBy('questionario_id')->count();
     }
 }

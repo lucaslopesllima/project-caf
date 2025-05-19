@@ -10,9 +10,9 @@
                 </x-input-label>
                 <select name="priority" class="focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ms-5" style="border: 1px solid  #cecece;">
                     <option value="">-- Prioridade --</option>
-                    <option value="1" {{ request('priority') == 1 ? 'selected' : '' }}>Alta</option>
-                    <option value="2" {{ request('priority') == 2 ? 'selected' : '' }}>Média</option>
-                    <option value="3" {{ request('priority') == 3 ? 'selected' : '' }}>Baixa</option>
+                    <option value="1" {{ request('priority') == 1 ? 'selected' : '' }}>1 - Alta</option>
+                    <option value="2" {{ request('priority') == 2 ? 'selected' : '' }}>2 - Média</option>
+                    <option value="3" {{ request('priority') == 3 ? 'selected' : '' }}>3 - Baixa</option>
                 </select>
                 <x-input-label for="dateStart" class="mt-3 ms-3 mb-3">
                     Data Inicio:&nbsp;

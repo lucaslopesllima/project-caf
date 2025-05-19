@@ -3,7 +3,7 @@
     <select id="pessoa" name="personId" class="min-w-[550px] border rounded px-3 py-2">
         <option value="">Selecione uma pessoa</option>
         @foreach ($people as $person)
-        <option value="{{$person->id}}">{{ $person->nome }}</option>
+        <option value="{{$person->id}}" {{ old('personId') == $person->id ? 'selected' : '' }}>{{ $person->nome }}</option>
         @endforeach
     </select>
     <p id="pessoa-error" class="text-red-500 text-sm mt-1 hidden">Por favor, selecione uma pessoa</p>
@@ -13,7 +13,7 @@
     <select id="questionario" name="questionnaireId" onchange="validateAndShowForm()" class="min-w-[550px] border rounded px-3 py-2">
         <option value="">Selecione um questionário</option>
         @foreach ($questionnaires as $questionnaire)
-        <option value="{{$questionnaire->id}}">{{ $questionnaire->nome }}</option>
+        <option value="{{$questionnaire->id}}" {{ old('questionnaireId') == $questionnaire->id ? 'selected' : '' }}>{{ $questionnaire->nome }}</option>
         @endforeach
     </select>
     <p id="questionario-error" class="text-red-500 text-sm mt-1 hidden">Por favor, selecione um questionário</p>
@@ -21,7 +21,7 @@
 <div id="loading" class="mt-4 text-center hidden">
     <p>Carregando perguntas...</p>
 </div>
-<div id="formulario" name="respostas[]"></div>
+<div id="formulario" class="max-h-[550px] mt-4 overflow-x-auto w-full" name="respostas[]"></div>
 <div id="form-error" class="text-red-500 text-sm mt-2 mb-2 hidden">Por favor, preencha todos os campos obrigatórios</div>
 <button type="button" onclick="sendAnswer(event)" id="submitBtn" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 hidden">
     Enviar Respostas
@@ -66,16 +66,16 @@
 
         try {
             const response = await fetch(`/getWholeQuestions/${questionarioId}`);
-
+            
             if (!response.ok) {
                 throw new Error(`Erro ao carregar perguntas: ${response.status}`);
             }
-
+            
             const data = await response.json();
-
+            
             if (data.questions && data.questions.length > 0) {
 
-                data.questions.forEach(pergunta => {
+                Array.from(data.questions).forEach(pergunta => {
                     const wrapper = document.createElement("div");
                     wrapper.className = "mb-4";
 
@@ -93,17 +93,8 @@
                     wrapper.appendChild(label);
 
                     let input;
-                    if (pergunta.type === "text") {
 
-                        input = document.createElement("input");
-                        input.type = "text";
-                        input.className = "w-full border rounded px-3 py-2";
-                        if (pergunta.obrigatorio) {
-                            input.required = true;
-                        }
-
-                    } else if (pergunta.type === "alternative") {
-
+                    if (pergunta.tipo === "alternative") {
                         input = document.createElement("select");
                         input.className = "w-full border rounded px-3 py-2";
 
@@ -124,6 +115,26 @@
 
                         if (pergunta.obrigatorio) {
                             input.required = true;
+                        }
+
+                        // Restaurar valor antigo para select
+                        const oldValue = document.querySelector(`input[name="old_resposta_${pergunta.id}"]`)?.value;
+                        if (oldValue) {
+                            input.value = oldValue;
+                        }
+
+                    } else {
+                        input = document.createElement("input");
+                        input.type = "text";
+                        input.className = "w-full border rounded px-3 py-2";
+                        if (pergunta.obrigatorio) {
+                            input.required = true;
+                        }
+
+                        // Restaurar valor antigo para input text
+                        const oldValue = document.querySelector(`input[name="old_resposta_${pergunta.id}"]`)?.value;
+                        if (oldValue) {
+                            input.value = oldValue;
                         }
                     }
 

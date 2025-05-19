@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="w-full">
-        <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">Beneficiários</h2>
-        <a class="btn btn-primary ms-3 me-5" href="{{ route('pessoa.create') }}">Cadastrar</a>
+        <h2 class="text-2xl font-bold ms-10 mt-10 mb-4 ms-3">{{ $is_volunteer=='voluntario'  ? 'Voluntário':'Beneficiários' }}</h2>
+        <a class="btn btn-primary ms-3 me-5" href="{{ route('pessoa.create',['tipo' => $is_volunteer=='voluntario'  ? 1:0 ]) }}">Cadastrar</a>
         <div class="flex row mt-5 justify-content-center items-center">
             <form action="{{ route('pessoa.index')}}" method="get" class="flex row justify-content-center items-center">
                 <x-input-label for="namePerson" class="mt-3 ms-3 mb-3">
@@ -11,7 +11,7 @@
                 </x-input-label>
                 <x-input-label for="cpfPerson" class="mt-3 ms-3 mb-3">
                     CPF:&nbsp;
-                    <x-text-input minleght="3" type="text" name="cpfPerson" id="cpfPerson">
+                    <x-text-input minleght="3" type="text" name="cpfPerson" id="cpfPerson"> 
                     </x-text-input>
                 </x-input-label>
                 <x-secondary-button type="submit" class="ms-5 max-h-[25px]">Filtrar</x-secondary-button>
@@ -37,13 +37,13 @@
                     @foreach ($people as $person)
                     <tr class="hover:bg-gray-900/50">
                         <td class="px-4 py-2 truncate">
-                            {{$person->nome}}
+                            {{ $person->nome }}
                         </td>
                         <td class="px-4 py-2">
-                            {{$person->idade}}
+                            {{ $person->idade }}
                         </td>
                         <td class="px-4 py-2">
-                            {{$person->quantidade_filhos}}
+                            {{ $person->quantidade_filhos }}
                         </td>
                         <td class="px-4 py-2 truncate">
                             {{$person->naturalidade}}

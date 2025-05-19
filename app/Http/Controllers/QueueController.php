@@ -35,7 +35,7 @@ class QueueController extends Controller
                         nome,
                         priority,
                         created_at,
-                        ROW_NUMBER() OVER (ORDER BY priority ASC, id ASC) AS posicao
+                        ROW_NUMBER() OVER (ORDER BY priority ASC, created_at ASC) AS posicao
                     FROM pessoas
                     WHERE was_attended = :was_attended";
         

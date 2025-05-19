@@ -5,13 +5,13 @@
         <div class="flex row mt-5 ms-10 justify-content-center items-center">
             <form action="{{ route('pessoa-questionario.index')}}" method="get" class="flex row justify-content-center items-center">
                 <x-input-label for="nameQuetionnaire" class="mt-3 ms-3 mb-3">
-                    Nome:&nbsp;
-                    <x-text-input minleght="3" type="text" name="nameQuetionnaire" id="nameQuetionnaire">
+                    Nome Questionario:&nbsp;
+                    <x-text-input minleght="3" type="text" name="nameQuetionnaire" id="nameQuetionnaire" value="{{ $filters['nameQuetionnaire'] ?? old('nameQuetionnaire') }}">
                     </x-text-input>
                 </x-input-label>
                 <x-input-label for="ownerName" class="mt-3 ms-3 mb-3">
-                    Nome Résponsável:&nbsp;
-                    <x-text-input minleght="3" type="text" name="ownerName" id="ownerName">
+                    Nome Responsável:&nbsp;
+                    <x-text-input minleght="3" type="text" name="ownerName" id="ownerName" value="{{ $filters['ownerName'] ?? old('ownerName') }}">
                     </x-text-input>
                 </x-input-label>
                 <x-secondary-button type="submit" class="ms-5 max-h-[25px]">Filtrar</x-secondary-button>

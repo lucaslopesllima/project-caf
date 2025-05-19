@@ -38,7 +38,10 @@ class PessoaQuestionarioController extends Controller
     
             $answers = $query->paginate(10);
 
-        return view('reponseQuestionnaires.index',['answers'=>$answers]);
+        return view('reponseQuestionnaires.index',[
+            'answers' => $answers,
+            'filters' => $filters
+        ]);
     }
 
     public function store(Request $request)

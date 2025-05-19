@@ -18,9 +18,22 @@ class Pessoa extends Model
         'naturalidade',
         'bairro',
         'escolaridade',
-        'cpf'
+        'cpf',
+        'is_volunteer'
     ];
 
-    
+    public static function getEachPeopleRegisteredPerMonth(){
+        return self::selectRaw('MONTH(created_at) AS month, COUNT(*) AS count')
+                    ->whereRaw('YEAR(created_at) = YEAR(NOW())')
+                    ->groupBy('month')
+                    ->orderBy('month')
+                    ->get()
+                    ->toArray();
+    }
+
+
+    public static function getLastRegisteredPeople(){
+        return self::orderBy('id','desc')->limit(5)->get();
+    }
    
 }

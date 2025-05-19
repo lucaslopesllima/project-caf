@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerguntaController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\PessoaQuestionarioController;
@@ -33,13 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/marcar-atendido',[QueueController::class, 'setAttendedStatus'])->name('queue.setAttended');
     Route::post('/atualizar-prioridade',[QueueController::class, 'setPriority'])->name('queue.setPriority');
 
+
     Route::get('responder-questionario',
     [PessoaQuestionarioController::class,'index'])
     ->name('solved_questionnairies');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
 
     Route::get('pessoa-questionario/{id}/answers-data', 
