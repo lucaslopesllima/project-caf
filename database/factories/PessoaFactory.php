@@ -22,6 +22,8 @@ class PessoaFactory extends Factory
             'quantidade_filhos' => fake()->numberBetween(0, 10),
             'naturalidade' => fake()->city(),
             'bairro' => fake()->streetName(),
+            'cpf' => $this->faker->unique()->numerify('###########'),
+            'was_attended' => fake()->boolean(),
             'escolaridade' => fake()->randomElement([
                 'Fundamental Incompleto',
                 'Fundamental Completo',

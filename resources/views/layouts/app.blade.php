@@ -40,6 +40,7 @@
                     <li><a href="{{ route('profile.index')}}">Usuários</a></li>
                     <li><a href="{{ route('pessoa.index',['tipo'=>'beneficiario']) }}">Beneficiarios</a></li>
                     <li><a href="{{ route('pessoa.index',['tipo'=>'voluntario']) }}">Voluntários</a></li>
+                    <li><a href="{{ route('project.index') }}">Projetos</a></li>
                     <li><a href="{{ route('questionario.index') }}">Questionarios</a></li>
                     <li><a href="{{ route('pergunta.index')}}">Perguntas</a></li>
                     <li><a href="{{ route('solved_questionnairies')}}">Respondidos</a></li>

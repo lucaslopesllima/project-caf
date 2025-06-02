@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('naturalidade');
             $table->string('bairro');
             $table->string('escolaridade');
+            $table->integer('priority')->default(3);;
+            $table->tinyInteger('was_attended')->default(false);
             $table->timestamps();
         });
     }
